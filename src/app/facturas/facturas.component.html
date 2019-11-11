@@ -1,0 +1,17 @@
+<div class="fondo">
+  <div class="container">
+    <h1>Lista de Facturas</h1>
+    <table>
+      <tr>
+        <th># Serie</th>
+        <th>Valor</th>
+        <th>Fecha</th>
+      </tr>
+      <tr *ngFor="let fac of facturas" (click)="selectedItem(fac.id)">
+        <td>{{fac.numero_serie}}</td>
+        <td>{{fac.valor_venta}}</td>
+        <td>{{fac.fecha_impresion}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
