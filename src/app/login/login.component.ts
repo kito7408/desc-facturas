@@ -10,6 +10,9 @@ import { Router, ActivatedRoute, Params } from '@angular/router'
 })
 export class LoginComponent implements OnInit {
 
+  user: string;
+  pass: string;
+
   constructor(
     private _router: Router,
     private userService: UsuariosService
@@ -18,9 +21,13 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  getAll(): void {
-    this.userService.getAll()
-    .subscribe(data => console.log(data));
+  login(): void {
+    this.userService.login(this.user, this.pass)
+    .subscribe(data => {
+      console.log(data);
+      localStorage.setItem('userID', data.id.toString());
+      this._router.navigate(['facturas']);
+    });
   }
 
   registrar(): void {

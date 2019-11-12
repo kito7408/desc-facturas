@@ -14,4 +14,6 @@ export class Usuario{
     nombre: string;
     apellido: string;
     nif: string;
+    usuario: string;
+    password: string;
 }
