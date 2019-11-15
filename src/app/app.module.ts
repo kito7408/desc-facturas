@@ -13,6 +13,7 @@ import { RegistroComponent } from './registro/registro.component';
 import { UsuariosService } from './services/usuarios.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FacturasService } from './services/facturas.service';
+import { FacDetailComponent } from './fac-detail/fac-detail.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FacturasService } from './services/facturas.service';
     FacturasComponent,
     BancosComponent,
     DeudoresComponent,
-    RegistroComponent
+    RegistroComponent,
+    FacDetailComponent
   ],
   imports: [
     BrowserModule,

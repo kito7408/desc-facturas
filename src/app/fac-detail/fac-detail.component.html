@@ -1,0 +1,117 @@
+<div class="fondo">
+  <div class="container-fluid">
+    <div class="row text-center">
+      <h1 class="registro-title">Detalle de Factura</h1>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <button (click)="back();">Back</button>
+      </div>
+      <div class="col-sm-8">
+        <form action="">
+          <div class="row">
+            <div class="col-sm-6">
+              <label>Fecha de emision</label>
+              <div class="form-element">
+                <input type="text" name="fecha_emision" [(ngModel)]="factura.fecha_emision">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <label>Fecha de impresion</label>
+              <div class="form-element">
+                <input type="text" name="fecha_impresion" [(ngModel)]="factura.fecha_impresion">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <label>Fecha de vencimiento</label>
+              <div class="form-element">
+                <input type="text" name="fecha_vencimiento" [(ngModel)]="factura.fecha_vencimiento">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <label>IGV</label>
+              <div class="form-element">
+                <input type="text" name="igv" [(ngModel)]="factura.igv">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <label>Monto neto de pago</label>
+              <div class="form-element">
+                <input type="text" name="monto_neto_pago" [(ngModel)]="factura.monto_neto_pago">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <label>Numero de autorizacion de impresion</label>
+              <div class="form-element">
+                <input type="text" name="numero_autorizacion_impresion"
+                  [(ngModel)]="factura.numero_autorizacion_impresion">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <label>Numero correlativo</label>
+              <div class="form-element">
+                <input type="text" name="numero_correlativo" [(ngModel)]="factura.numero_correlativo">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <label>Numero de serie</label>
+              <div class="form-element">
+                <input type="text" name="numero_serie" [(ngModel)]="factura.numero_serie">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <label>Precio de venta</label>
+              <div class="form-element">
+                <input type="text" name="precio_venta" [(ngModel)]="factura.precio_venta">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <label>RUC de imprenta</label>
+              <div class="form-element">
+                <input type="text" name="ruc_imprenta" [(ngModel)]="factura.ruc_imprenta">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <label>Tipo de pago</label>
+              <div class="form-element">
+                <input type="text" name="tipo_pago" [(ngModel)]="factura.tipo_pago">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <label>Valor de venta</label>
+              <div class="form-element">
+                <input type="text" name="valor_venta" [(ngModel)]="factura.valor_venta">
+              </div>
+            </div>
+          </div>
+          <div class="factura-button">
+            <button class="btn btn-warning" type="submit" (click)="update();" *ngIf="paramId">Modificar</button>
+          </div>
+          <div class="factura-button">
+            <button class="btn btn-success" type="submit" (click)="create();" *ngIf="!paramId">Crear</button>
+          </div>
+        </form>
+      </div>
+      <div class="col-sm-2"></div>
+    </div>
+  </div>
+  <div class="alert alert-success" role="alert" *ngIf="created">
+    Factura creada correctamente
+  </div>
+  <div class="alert alert-success" role="alert" *ngIf="updated">
+    Factura modificada correctamente
+  </div>
+  <div class="alert alert-danger" role="alert" *ngIf="error">
+    Ha ocurrido un error
+  </div>
+</div>

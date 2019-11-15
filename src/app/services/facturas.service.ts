@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { HttpClient,HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Factura } from '../facturas/factura';
 
@@ -19,6 +19,11 @@ export class FacturasService {
   getById(id: number): Observable<Factura> {
     const newUrl = this.url + '/' + id;
     return this.http.get<Factura>(newUrl);
+  }
+
+  getByUserId(id: number): Observable<Factura[]> {
+    let params = new HttpParams().set("userId",id.toString())
+    return this.http.get<Factura[]>(this.url,{ params: params });
   }
 
   save(fac: Factura):Observable<Factura>{

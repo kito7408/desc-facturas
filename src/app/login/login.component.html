@@ -9,11 +9,11 @@
         <form action="">
           <div class="form-element">
             <label for="user">Usuario</label>
-            <input type="text" [(ngModel)]="user" required>
+            <input type="text" name="user" [(ngModel)]="user" required>
           </div>
           <div class="form-element">
             <label for="user">Contraseña</label>
-            <input type="password" [(ngModel)]="pass" required>
+            <input type="password" name="password" [(ngModel)]="pass" required>
           </div>
           <div class="login-buttons">
             <button class="btn btn-success" type="submit" (click)="login();">Ingresar</button>
