@@ -23,10 +23,12 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     this.userService.login(this.user, this.pass)
-    .subscribe(data => {
+    .subscribe((data: Usuario) => {
       console.log(data);
-      localStorage.setItem('userID', data.id.toString());
+      localStorage.setItem('userID', data.id + '');
       this._router.navigate(['facturas']);
+    }, (error) => {
+      console.log("no existe el usuario");
     });
   }
 
