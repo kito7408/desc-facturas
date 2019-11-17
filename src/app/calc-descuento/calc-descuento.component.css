@@ -1,0 +1,33 @@
+label{
+    display: block;
+}
+
+h1{
+    display: block;
+    width: 100%;
+}
+
+.factura-data{
+    margin-top: 5%;
+    border: 1px solid black;
+    width: 100%;
+    padding: 10px;
+}
+
+.info-cambio{
+    text-align: right;
+}
+
+.descuento-section{
+    margin-top: 5%;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+input{
+    margin-bottom: 10px;
+}
+
+.btn{
+    margin: 10px;
+}

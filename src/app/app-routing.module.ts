@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { RegistroComponent } from './registro/registro.component';
 import { FacDetailComponent } from './fac-detail/fac-detail.component';
+import { CalcDescuentoComponent } from './calc-descuento/calc-descuento.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'usuarios', component: UsuariosComponent },
   { path: 'facturas/new', component: FacDetailComponent},
   { path: 'facturas/:id', component: FacDetailComponent},
+  { path: 'descuento/:id', component: CalcDescuentoComponent},
 ];
 
 @NgModule({

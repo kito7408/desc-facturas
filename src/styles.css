@@ -15,3 +15,17 @@ body{
 input{
     width: 90%;
 }
+
+.alert{
+    width: 40%;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+}
+
+.logout{
+    width: 10%;
+    position: fixed;
+    right: 10px;
+    top: 1px;
+}

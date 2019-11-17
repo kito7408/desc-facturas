@@ -13,13 +13,13 @@
             <div class="col-sm-6">
               <label>Fecha de emision</label>
               <div class="form-element">
-                <input type="text" name="fecha_emision" [(ngModel)]="factura.fecha_emision">
+                <input type="date" name="fecha_emision" [(ngModel)]="factura.fecha_emision">
               </div>
             </div>
             <div class="col-sm-6">
               <label>Fecha de impresion</label>
               <div class="form-element">
-                <input type="text" name="fecha_impresion" [(ngModel)]="factura.fecha_impresion">
+                <input type="date" name="fecha_impresion" [(ngModel)]="factura.fecha_impresion">
               </div>
             </div>
           </div>
@@ -27,13 +27,13 @@
             <div class="col-sm-6">
               <label>Fecha de vencimiento</label>
               <div class="form-element">
-                <input type="text" name="fecha_vencimiento" [(ngModel)]="factura.fecha_vencimiento">
+                <input type="date" name="fecha_vencimiento" [(ngModel)]="factura.fecha_vencimiento">
               </div>
             </div>
             <div class="col-sm-6">
               <label>IGV</label>
               <div class="form-element">
-                <input type="text" name="igv" [(ngModel)]="factura.igv">
+                <input type="text" name="igv" [(ngModel)]="igv_porcentaje">%
               </div>
             </div>
           </div>
@@ -68,9 +68,12 @@
           </div>
           <div class="row">
             <div class="col-sm-6">
-              <label>Precio de venta</label>
+              <label>Tipo de pago</label>
               <div class="form-element">
-                <input type="text" name="precio_venta" [(ngModel)]="factura.precio_venta">
+                <select name="tipo_pago" [(ngModel)]="factura.tipo_moneda">
+                  <option value="Soles">Soles</option>
+                  <option value="Dolares">Dolares</option>
+                </select>
               </div>
             </div>
             <div class="col-sm-6">
@@ -82,22 +85,23 @@
           </div>
           <div class="row">
             <div class="col-sm-6">
-              <label>Tipo de pago</label>
-              <div class="form-element">
-                <input type="text" name="tipo_pago" [(ngModel)]="factura.tipo_pago">
-              </div>
-            </div>
-            <div class="col-sm-6">
               <label>Valor de venta</label>
               <div class="form-element">
                 <input type="text" name="valor_venta" [(ngModel)]="factura.valor_venta">
               </div>
             </div>
+            <div class="col-sm-6" *ngIf="paramId">
+              <label>Precio de venta</label>
+              <div class="form-element">
+                <input type="text" name="precio_venta" [(ngModel)]="factura.precio_venta" disabled>
+              </div>
+            </div>
           </div>
-          <div class="factura-button">
+          <div class="factura-button text-center">
             <button class="btn btn-warning" type="submit" (click)="update();" *ngIf="paramId">Modificar</button>
+            <button class="btn btn-info" type="submit" (click)="desc();" *ngIf="paramId">Calcular Descuento</button>
           </div>
-          <div class="factura-button">
+          <div class="factura-button text-center">
             <button class="btn btn-success" type="submit" (click)="create();" *ngIf="!paramId">Crear</button>
           </div>
         </form>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Usuario } from '../usuarios/usuarios';
+import { Usuario } from '../clases/usuarios';
 import { UsuariosService } from '../services/usuarios.service';
 import { Router, ActivatedRoute, Params } from '@angular/router'
 
@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
 
   user: string;
   pass: string;
+  error: boolean;
 
   constructor(
     private _router: Router,
@@ -24,11 +25,15 @@ export class LoginComponent implements OnInit {
   login(): void {
     this.userService.login(this.user, this.pass)
     .subscribe((data: Usuario) => {
-      console.log(data);
-      localStorage.setItem('userID', data.id + '');
+      localStorage.setItem('user', JSON.stringify(data));
       this._router.navigate(['facturas']);
     }, (error) => {
       console.log("no existe el usuario");
+      console.log(error);
+      this.error = true;
+      setTimeout(() => {
+        this.error = false;
+      }, 3000);
     });
   }
 

@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FacturasService } from '../services/facturas.service';
-import { Factura } from './factura';
+import { ContratosService } from '../services/contratos.service';
+import { Factura } from '../clases/factura';
+import { Contrato } from '../clases/contrato';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import * as moment from 'moment';
+import { Usuario } from '../clases/usuarios';
 
 @Component({
   selector: 'app-facturas',
@@ -10,32 +14,52 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 })
 export class FacturasComponent implements OnInit {
 
-  facturas: Factura[];
-  userId: number;
+  facturas: any[];
+  contratos: any[];
+  user: Usuario;
+  cartera_vr: number;
+  cartera_tcea: number;
 
   constructor(
     private facturaService: FacturasService,
-    private _router: Router
-  ) { 
-    if(localStorage.getItem('userID')){
-      this.userId = parseInt(localStorage.getItem('userID'));
+    private _router: Router,
+    private contratoService: ContratosService
+  ) {
+    this.cartera_vr = 0;
+    this.cartera_tcea = 0;
+    if(localStorage.getItem('user')){
+      this.user = JSON.parse(localStorage.getItem('user')).data;
+      this.getAll();
     } else {
       this._router.navigate(["login"]);
     }
   }
 
   ngOnInit() {
-    this.getAll();
   }
 
   getAll(): void {
-    this.facturaService.getAll()
-    .subscribe(data => this.facturas=data);
-  }
-
-  getByUserId(): void {
-    this.facturaService.getByUserId(this.userId).subscribe((result) => {
-      this.facturas = result;
+    this.facturaService.getByUserId(this.user.id)
+    .subscribe((data) => {
+      data.forEach(element => {
+        element.date_string = moment(element.fecha_emision).format('DD/MM/YYYY').toString();
+      });
+      this.facturas=data;
+    });
+    var tcea_suma = 0;
+    this.contratoService.getAll().subscribe((result) => {
+      this.contratos = result;
+      this.contratos.forEach(element => {
+        if (element.retencion == null) {
+          element.retencion = 0;
+        }
+        this.cartera_vr += Number(element.valor_recibido);
+        element.fecha_giro = moment(element.fecha_giro).format('DD/MM/YYYY').toString();
+        element.fecha_vencimiento = moment(element.fecha_vencimiento).format('DD/MM/YYYY').toString();
+        element.tcea = element.tcea * 100;
+        tcea_suma += Number(element.tcea);
+      });
+      this.cartera_tcea = tcea_suma/result.length;
     })
   }
 
@@ -45,5 +69,10 @@ export class FacturasComponent implements OnInit {
 
   newFac(): void {
     this._router.navigate(['facturas/new']);
+  }
+
+  logout(): void {
+    this._router.navigate(['login']);
+    localStorage.clear();
   }
 }

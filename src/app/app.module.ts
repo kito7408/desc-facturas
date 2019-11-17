@@ -14,6 +14,9 @@ import { UsuariosService } from './services/usuarios.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FacturasService } from './services/facturas.service';
 import { FacDetailComponent } from './fac-detail/fac-detail.component';
+import { CalcDescuentoComponent } from './calc-descuento/calc-descuento.component';
+import { BancosService } from './services/bancos.service';
+import { TasasService } from './services/tasas.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,8 @@ import { FacDetailComponent } from './fac-detail/fac-detail.component';
     BancosComponent,
     DeudoresComponent,
     RegistroComponent,
-    FacDetailComponent
+    FacDetailComponent,
+    CalcDescuentoComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +36,7 @@ import { FacDetailComponent } from './fac-detail/fac-detail.component';
     HttpClientModule,
     FormsModule
   ],
-  providers: [UsuariosService, FacturasService],
+  providers: [UsuariosService, FacturasService, BancosService, TasasService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

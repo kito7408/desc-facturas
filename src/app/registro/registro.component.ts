@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuariosService } from '../services/usuarios.service';
-import { Usuario } from '../usuarios/usuarios';
+import { Usuario } from '../clases/usuarios';
 import { Router, ActivatedRoute, Params } from '@angular/router'
 
 @Component({
@@ -27,7 +27,7 @@ export class RegistroComponent implements OnInit {
       this.userService.save(this.newUser)
         .subscribe(data => {
           console.log(data);
-          localStorage.setItem('userID', data.id.toString());
+          localStorage.setItem('user', JSON.stringify(data));
           this._router.navigate(['facturas']);
         });
     }
