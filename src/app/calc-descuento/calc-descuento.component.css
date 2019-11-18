@@ -28,6 +28,11 @@ input{
     margin-bottom: 10px;
 }
 
+select{
+    margin-bottom: 10px;
+    height: 30px;
+}
+
 .btn{
     margin: 10px;
 }

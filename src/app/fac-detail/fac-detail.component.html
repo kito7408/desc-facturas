@@ -39,9 +39,9 @@
           </div>
           <div class="row">
             <div class="col-sm-6">
-              <label>Monto neto de pago</label>
+              <label>RUC de imprenta</label>
               <div class="form-element">
-                <input type="text" name="monto_neto_pago" [(ngModel)]="factura.monto_neto_pago">
+                <input type="text" name="ruc_imprenta" [(ngModel)]="factura.ruc_imprenta">
               </div>
             </div>
             <div class="col-sm-6">
@@ -77,19 +77,13 @@
               </div>
             </div>
             <div class="col-sm-6">
-              <label>RUC de imprenta</label>
-              <div class="form-element">
-                <input type="text" name="ruc_imprenta" [(ngModel)]="factura.ruc_imprenta">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-6">
               <label>Valor de venta</label>
               <div class="form-element">
                 <input type="text" name="valor_venta" [(ngModel)]="factura.valor_venta">
               </div>
             </div>
+          </div>
+          <div class="row">
             <div class="col-sm-6" *ngIf="paramId">
               <label>Precio de venta</label>
               <div class="form-element">

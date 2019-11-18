@@ -7,6 +7,7 @@ import { BancosService } from '../services/bancos.service';
 import { TasasService } from '../services/tasas.service';
 import { ContratosService } from '../services/contratos.service';
 import * as moment from 'moment';
+import { Usuario } from '../clases/usuarios';
 
 @Component({
   selector: 'app-calc-descuento',
@@ -17,6 +18,7 @@ export class CalcDescuentoComponent implements OnInit {
 
   facturaID: number;
   factura = new Factura;
+  bancoSeleccionado: Banco;
   bancos: Banco[];
   bancoID: number;
   tasas: any[];
@@ -25,6 +27,7 @@ export class CalcDescuentoComponent implements OnInit {
   fecha_descuento: Date;
   created: boolean;
   error: boolean;
+  user: Usuario;
 
   constructor(
     private route: ActivatedRoute,
@@ -37,6 +40,8 @@ export class CalcDescuentoComponent implements OnInit {
     this.bancoSelected = false;
     this.created = false;
     this.error = false;
+
+    this.user = JSON.parse(localStorage.getItem('user'));
 
     this.route.params.subscribe((params) => {
       this.facturaID = params['id'];
@@ -56,6 +61,9 @@ export class CalcDescuentoComponent implements OnInit {
   }
 
   bancoSelect(): void {
+    this.bancoService.getById(this.bancoID).subscribe((result) => {
+      this.bancoSeleccionado = result;
+    })
     this.tasaService.getByBancoId(this.bancoID).subscribe((result) => {
       this.tasas = result;
       this.tasas.forEach(element => {
@@ -96,7 +104,7 @@ export class CalcDescuentoComponent implements OnInit {
   }
 
   calculoDescuento(): void {
-    this.contratoService.save(this.facturaID, this.bancoID, this.tasaID, this.fecha_descuento).subscribe((result) => {
+    this.contratoService.save(this.facturaID, this.bancoID, this.tasaID, this.fecha_descuento, this.user.id).subscribe((result) => {
       this.created = true;
       setTimeout(() => {
         this.created = false;

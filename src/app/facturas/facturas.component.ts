@@ -19,20 +19,24 @@ export class FacturasComponent implements OnInit {
   user: Usuario;
   cartera_vr: number;
   cartera_tcea: number;
+  hayFacturas: boolean;
+  hayContratos: boolean;
 
   constructor(
     private facturaService: FacturasService,
     private _router: Router,
     private contratoService: ContratosService
   ) {
-    this.cartera_vr = 0;
-    this.cartera_tcea = 0;
+    this.hayFacturas = false;
+    this.hayContratos = false;
     if(localStorage.getItem('user')){
-      this.user = JSON.parse(localStorage.getItem('user')).data;
-      this.getAll();
+      this.user = JSON.parse(localStorage.getItem('user'));
     } else {
       this._router.navigate(["login"]);
     }
+    this.cartera_vr = 0;
+    this.cartera_tcea = 0;
+    this.getAll();
   }
 
   ngOnInit() {
@@ -41,13 +45,19 @@ export class FacturasComponent implements OnInit {
   getAll(): void {
     this.facturaService.getByUserId(this.user.id)
     .subscribe((data) => {
+      if(data.length > 0){
+        this.hayFacturas = true;
+      }
       data.forEach(element => {
         element.date_string = moment(element.fecha_emision).format('DD/MM/YYYY').toString();
       });
       this.facturas=data;
     });
     var tcea_suma = 0;
-    this.contratoService.getAll().subscribe((result) => {
+    this.contratoService.getByUserId(this.user.id).subscribe((result) => {
+      if(result.length > 0){
+        this.hayContratos = true;
+      }
       this.contratos = result;
       this.contratos.forEach(element => {
         if (element.retencion == null) {

@@ -21,13 +21,19 @@ export class ContratosService {
     return this.http.get<Contrato>(newUrl);
   }
 
-  save(facID: number, bankID: number, tasaID: number, fecha: Date):Observable<Contrato>{
+  getByUserId(id: number): Observable<Contrato[]> {
+    const newUrl = this.url + '?userId=' + id;
+    return this.http.get<Contrato[]>(newUrl);
+  }
+
+  save(facID: number, bankID: number, tasaID: number, fecha: Date, userID: number):Observable<Contrato>{
 
     let data = {
       facturaId: facID,
       bancoId: bankID,
       tasaId: tasaID,
-      fechaGiro: fecha
+      fechaGiro: fecha,
+      usuarioId: userID
     }
     return this.http.post<Contrato>(this.url,data);
   }

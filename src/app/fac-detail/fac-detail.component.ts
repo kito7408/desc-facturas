@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Factura } from '../clases/factura';
 import { FacturasService } from '../services/facturas.service';
 import * as moment from 'moment';
+import { Usuario } from '../clases/usuarios';
 
 @Component({
   selector: 'app-fac-detail',
@@ -17,6 +18,7 @@ export class FacDetailComponent implements OnInit {
   created: boolean;
   error: boolean;
   igv_porcentaje: number;
+  user: Usuario;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,6 +28,7 @@ export class FacDetailComponent implements OnInit {
     this.updated = false;
     this.error = false;
     this.route.params.subscribe((params) => {
+      this.user = JSON.parse(localStorage.getItem('user'));
       if (params['id']) {
         this.paramId = params['id'];
         this.facturaService.getById(this.paramId).subscribe((result) => {
@@ -37,6 +40,7 @@ export class FacDetailComponent implements OnInit {
         })
       } else {
         this.paramId = undefined;
+        this.factura.tipo_moneda = 'Soles';
       }
     })
   }
@@ -53,7 +57,7 @@ export class FacDetailComponent implements OnInit {
       this.updated = true;
       setTimeout(() => {
         this.updated = false;
-      }, 3000);
+      }, 1500);
     }, (error) => {
       console.log(error);
       this.error = true;
@@ -66,12 +70,13 @@ export class FacDetailComponent implements OnInit {
   create(): void {
     this.factura.igv = Number(this.igv_porcentaje) / 100;
     this.factura.precio_venta = Number(this.factura.valor_venta) * (1 + Number(this.factura.igv));
+    this.factura.usuario_id = this.user.id;
     this.facturaService.save(this.factura).subscribe((result) => {
       this.created = true;
       setTimeout(() => {
         this.created = false;
         this._router.navigate(['facturas/'+result.id])
-      }, 3000);
+      }, 1500);
     }, (error) => {
       console.log(error);
       this.error = true;

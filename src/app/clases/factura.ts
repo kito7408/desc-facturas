@@ -14,5 +14,5 @@ export class Factura{
     ruc_imprenta: string;
     fecha_impresion: string;
     numero_autorizacion_impresion: string;
-    tipo_moneda: number;
+    tipo_moneda: string;
 }

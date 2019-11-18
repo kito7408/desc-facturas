@@ -35,12 +35,12 @@ export class UsuariosService {
     return this.http.delete<Usuario>(newUrl);
   }
 
-  login(user: string, pass: string): Observable<Usuario> {
+  login(user: string, pass: string): Observable<any> {
     const newUrl = this.url + '/login';
     var userData = {
       usuario: user,
       password: pass
     }
-    return this.http.post<Usuario>(newUrl, userData);
+    return this.http.post<any>(newUrl, userData);
   }
 }

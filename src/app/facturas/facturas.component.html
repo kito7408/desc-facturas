@@ -15,7 +15,7 @@
       <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
         <h1>Lista de Facturas</h1>
         <button (click)="newFac();">+</button>
-        <table class="table" *ngIf="facturas">
+        <table class="table" *ngIf="hayFacturas">
           <tr>
             <th scope="col"># Serie</th>
             <th scope="col">Valor</th>
@@ -29,10 +29,11 @@
             <td><button (click)="detail(fac.id);">Ver</button></td>
           </tr>
         </table>
+        <p *ngIf="!hayFacturas">No hay datos que mostrar</p>
       </div>
       <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
         <h1>Lista de Descuentos</h1>
-        <table class="table" *ngIf="contratos">
+        <table class="table" *ngIf="hayContratos">
           <tr>
             <th scope="col">Fecha Giro</th>
             <th scope="col">Val. Nom</th>
@@ -66,7 +67,8 @@
             <td>{{con.tcea  | number: '2.1-7'}}%</td>
           </tr>
         </table>
-        <div>
+        <p *ngIf="!hayContratos">No hay datos que mostrar</p>
+        <div *ngIf="hayContratos">
           <h3 class="text-center">Cartera</h3>
           <div class="row">
             <div class="col-sm-4"></div>

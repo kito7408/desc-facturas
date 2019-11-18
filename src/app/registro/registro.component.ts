@@ -26,7 +26,6 @@ export class RegistroComponent implements OnInit {
     if (this.newUser.password == this.re_password) {
       this.userService.save(this.newUser)
         .subscribe(data => {
-          console.log(data);
           localStorage.setItem('user', JSON.stringify(data));
           this._router.navigate(['facturas']);
         });

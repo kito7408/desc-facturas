@@ -24,8 +24,8 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     this.userService.login(this.user, this.pass)
-    .subscribe((data: Usuario) => {
-      localStorage.setItem('user', JSON.stringify(data));
+    .subscribe((data: any) => {
+      localStorage.setItem('user', JSON.stringify(data.data));
       this._router.navigate(['facturas']);
     }, (error) => {
       console.log("no existe el usuario");
