@@ -85,4 +85,8 @@ export class FacturasComponent implements OnInit {
     this._router.navigate(['login']);
     localStorage.clear();
   }
+
+  goToFactura(id: number): void {
+    this._router.navigate(['facturas/'+id]);
+  }
 }

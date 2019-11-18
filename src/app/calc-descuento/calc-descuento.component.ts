@@ -120,6 +120,6 @@ export class CalcDescuentoComponent implements OnInit {
   }
 
   back(): void {
-    this._router.navigate(['facturas']);
+    this._router.navigate(['facturas/'+this.facturaID]);
   }
 }

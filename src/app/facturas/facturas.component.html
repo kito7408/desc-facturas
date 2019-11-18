@@ -26,7 +26,7 @@
             <td scope="row">{{fac.numero_serie}}</td>
             <td>{{fac.valor_venta}}</td>
             <td>{{fac.date_string}}</td>
-            <td><button (click)="detail(fac.id);">Ver</button></td>
+            <td class="accion"><button class="btn btn-link" (click)="detail(fac.id);">Ver Factura</button></td>
           </tr>
         </table>
         <p *ngIf="!hayFacturas">No hay datos que mostrar</p>
@@ -49,6 +49,7 @@
             <th scope="col">Val. Rec.</th>
             <th scope="col">Val Ent.</th>
             <th scope="col">TCEA%</th>
+            <th scope="col">Opción</th>
           </tr>
           <tr *ngFor="let con of contratos">
             <td scope="row">{{con.fecha_giro}}</td>
@@ -65,6 +66,7 @@
             <td>{{con.valor_recibido}}</td>
             <td>{{con.valor_entregado}}</td>
             <td>{{con.tcea  | number: '2.1-7'}}%</td>
+            <td class="accion"><button class="btn btn-link" (click)="goToFactura(con.factura_id);">Ver Factura</button></td>
           </tr>
         </table>
         <p *ngIf="!hayContratos">No hay datos que mostrar</p>
