@@ -4,6 +4,7 @@ label{
 
 .accion{
     padding: 0;
+    vertical-align: inherit;
 }
 
 td > button{

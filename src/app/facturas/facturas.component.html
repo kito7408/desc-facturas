@@ -14,7 +14,9 @@
     <div class="tab-content" id="nav-tabContent">
       <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
         <h1>Lista de Facturas</h1>
-        <button (click)="newFac();">+</button>
+        <div class="text-right">
+          <button class="btn btn-success" (click)="newFac();">Agregar</button>
+        </div>
         <table class="table" *ngIf="hayFacturas">
           <tr>
             <th scope="col"># Serie</th>
@@ -57,8 +59,8 @@
             <td>{{con.fecha_vencimiento}}</td>
             <td>{{con.dias}}</td>
             <td>{{con.retencion}}</td>
-            <td>{{con.tasa_efectiva}}</td>
-            <td>{{con.porcentaje_descuento}}</td>
+            <td>{{con.tasa_efectiva}}%</td>
+            <td>{{con.porcentaje_descuento}}%</td>
             <td>{{con.descuento}}</td>
             <td>{{con.costos_iniciales}}</td>
             <td>{{con.costos_finales}}</td>

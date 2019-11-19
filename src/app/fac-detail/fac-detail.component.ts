@@ -33,9 +33,10 @@ export class FacDetailComponent implements OnInit {
         this.paramId = params['id'];
         this.facturaService.getById(this.paramId).subscribe((result) => {
           this.igv_porcentaje = Number(result.igv) * 100;
-          result.fecha_emision = moment(this.factura.fecha_emision).format('YYYY-MM-DD');
-          result.fecha_impresion = moment(this.factura.fecha_impresion).format('YYYY-MM-DD');
-          result.fecha_vencimiento = moment(this.factura.fecha_vencimiento).format('YYYY-MM-DD');
+          result.fecha_emision = moment.utc(result.fecha_emision).format('YYYY-MM-DD');
+          result.fecha_impresion = moment.utc(result.fecha_impresion).format('YYYY-MM-DD');
+          result.fecha_vencimiento = moment.utc(result.fecha_vencimiento).format('YYYY-MM-DD');
+          console.log(result);
           this.factura = result;
         })
       } else {

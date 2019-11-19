@@ -29,6 +29,7 @@ export class CalcDescuentoComponent implements OnInit {
   error: boolean;
   user: Usuario;
   fecha_emision_string: string;
+  fecha_vencimiento_string: string;
   costosIniciales = new Array<any>();
   costosFinales = new Array<any>();
   hayCostosI: boolean;
@@ -55,6 +56,7 @@ export class CalcDescuentoComponent implements OnInit {
       this.facturaService.getById(this.facturaID).subscribe((result) => {
         this.factura = result;
         this.fecha_emision_string = moment(this.factura.fecha_emision).format('YYYY-MM-DD').toString();
+        this.fecha_vencimiento_string = moment(this.factura.fecha_vencimiento).format('YYYY-MM-DD').toString();
         this.factura.fecha_emision = moment(this.factura.fecha_emision).format('DD/MM/YYYY').toString();
         this.factura.fecha_vencimiento = moment(this.factura.fecha_vencimiento).format('DD/MM/YYYY').toString();
       })
