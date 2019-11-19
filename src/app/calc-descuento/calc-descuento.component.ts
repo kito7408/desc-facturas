@@ -31,6 +31,8 @@ export class CalcDescuentoComponent implements OnInit {
   fecha_emision_string: string;
   costosIniciales = new Array<any>();
   costosFinales = new Array<any>();
+  hayCostosI: boolean;
+  hayCostosF: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -43,6 +45,8 @@ export class CalcDescuentoComponent implements OnInit {
     this.bancoSelected = false;
     this.created = false;
     this.error = false;
+    this.hayCostosI = false;
+    this.hayCostosF = false;
 
     this.user = JSON.parse(localStorage.getItem('user'));
 
@@ -69,6 +73,8 @@ export class CalcDescuentoComponent implements OnInit {
       this.bancoSeleccionado = result;
     });
     this.bancoService.costosgastos(this.bancoID).subscribe((result) => {
+      this.costosIniciales = [];
+      this.costosFinales = [];
       result.forEach(element => {
         if(element.estado == 0){
           this.costosIniciales.push(element);
@@ -76,6 +82,16 @@ export class CalcDescuentoComponent implements OnInit {
           this.costosFinales.push(element);
         }
       });
+      if (this.costosIniciales.length > 0 ) {
+        this.hayCostosI = true;
+      } else {
+        this.hayCostosI = false;
+      }
+      if (this.costosFinales.length > 0 ) {
+        this.hayCostosF = true;
+      } else {
+        this.hayCostosF = false;
+      }
     });
     this.tasaService.getByBancoId(this.bancoID).subscribe((result) => {
       this.tasas = result;
