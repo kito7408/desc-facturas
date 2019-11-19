@@ -40,4 +40,9 @@ export class LoginComponent implements OnInit {
   registrar(): void {
     this._router.navigate(['registro']);
   }
+
+  log(one: any, two: any): void {
+    console.log(one);
+    console.log(two);
+  }
 }

@@ -93,4 +93,11 @@ export class FacDetailComponent implements OnInit {
   desc(): void {
     this._router.navigate(["descuento/" + this.paramId]);
   }
+
+  calcPrecio(): void {
+    if(this.factura.valor_venta != null && this.igv_porcentaje != null){
+      this.factura.precio_venta = Number(this.factura.valor_venta) * (1 + Number(this.igv_porcentaje)/100);
+      this.factura.precio_venta =  Math.round(this.factura.precio_venta * 100) / 100;
+    }
+  }
 }

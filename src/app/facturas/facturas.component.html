@@ -65,7 +65,7 @@
             <td>{{con.valor_neto}}</td>
             <td>{{con.valor_recibido}}</td>
             <td>{{con.valor_entregado}}</td>
-            <td>{{con.tcea  | number: '2.1-7'}}%</td>
+            <td>{{con.tcea}}%</td>
             <td class="accion"><button class="btn btn-link" (click)="goToFactura(con.factura_id);">Ver Factura</button></td>
           </tr>
         </table>
@@ -76,7 +76,7 @@
             <div class="col-sm-4"></div>
             <div class="cartera col-sm-6">
               <label for="vr">(VR) Valor Total a Recibir por la cartera: {{cartera_vr}}</label>
-              <label for="tcea">(TCEA) Tasa de Coste Efectiva Anual de la cartera: {{cartera_tcea | number: '2.1-7'}}%</label>
+              <label for="tcea">(TCEA) Tasa de Coste Efectiva Anual de la cartera: {{cartera_tcea}}%</label>
             </div>
             <div class="col-sm-2"></div>
           </div>

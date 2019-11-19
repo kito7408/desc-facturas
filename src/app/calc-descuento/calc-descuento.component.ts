@@ -28,6 +28,7 @@ export class CalcDescuentoComponent implements OnInit {
   created: boolean;
   error: boolean;
   user: Usuario;
+  fecha_emision_string: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -47,6 +48,7 @@ export class CalcDescuentoComponent implements OnInit {
       this.facturaID = params['id'];
       this.facturaService.getById(this.facturaID).subscribe((result) => {
         this.factura = result;
+        this.fecha_emision_string = moment(this.factura.fecha_emision).format('YYYY-MM-DD').toString();
         this.factura.fecha_emision = moment(this.factura.fecha_emision).format('DD/MM/YYYY').toString();
         this.factura.fecha_vencimiento = moment(this.factura.fecha_vencimiento).format('DD/MM/YYYY').toString();
       })
@@ -121,5 +123,11 @@ export class CalcDescuentoComponent implements OnInit {
 
   back(): void {
     this._router.navigate(['facturas/'+this.facturaID]);
+  }
+
+  log(one: any, two: any, three: any): void {
+    console.log(one);
+    console.log(two);
+    console.log(three);
   }
 }

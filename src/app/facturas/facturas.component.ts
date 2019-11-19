@@ -66,10 +66,13 @@ export class FacturasComponent implements OnInit {
         this.cartera_vr += Number(element.valor_recibido);
         element.fecha_giro = moment(element.fecha_giro).format('DD/MM/YYYY').toString();
         element.fecha_vencimiento = moment(element.fecha_vencimiento).format('DD/MM/YYYY').toString();
-        element.tcea = element.tcea * 100;
+        element.tcea = Number(element.tcea) * 100;
         tcea_suma += Number(element.tcea);
+        element.tcea = Math.round(element.tcea * 10000000) / 10000000;
       });
       this.cartera_tcea = tcea_suma/result.length;
+      this.cartera_tcea = Math.round(this.cartera_tcea * 10000000) / 10000000;
+      this.cartera_vr = Math.round(this.cartera_vr * 100) / 100;
     })
   }
 

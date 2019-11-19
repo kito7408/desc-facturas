@@ -6,17 +6,24 @@
     <div class="row">
       <div class="col-sm-4"></div>
       <div class="col-sm-4">
-        <form action="">
-          <div class="form-element">
+        <form>
+          <div class="form-group">
             <label for="user">Usuario</label>
-            <input type="text" name="user" [(ngModel)]="user" required>
+            <input class="form-control" type="text" name="user" id="user" [(ngModel)]="user" required #userControl='ngModel'>
+            <div *ngIf='userControl.touched && !userControl.valid' class="text-danger">
+              Llena el campo por favor
+            </div>
           </div>
           <div class="form-element">
             <label for="user">Contraseña</label>
-            <input type="password" name="password" [(ngModel)]="pass" required>
+            <input class="form-control" type="password" name="password" id="password" [(ngModel)]="pass" required #passControl='ngModel'>
+            <div *ngIf='passControl.touched && !passControl.valid' class="text-danger">
+              Llena el campo por favor
+            </div>
           </div>
           <div class="login-buttons">
-            <button class="btn btn-success" (click)="login();">Ingresar</button>
+            <!-- <button (click)='log(userControl, passControl);'>log</button> -->
+            <button type="submit" class="btn btn-success" (click)="login();" [disabled]='!userControl.valid || !passControl.valid'>Ingresar</button>
             <button class="btn btn-link" (click)="registrar();">Registrarse</button>
             <!-- <button class="btn btn-link">¿Olvidaste tu contraseña?</button> -->
           </div>

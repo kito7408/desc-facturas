@@ -8,13 +8,18 @@
       <h1>Datos de Factura</h1>
       <div class="row">
         <div class="col-sm-6">
-          <label><b>Número Correlativo:</b> {{factura.numero_correlativo}}</label>
-          <label><b>Fecha de emisión:</b> {{factura.fecha_emision}}</label>
-          <label><b>Moneda:</b> {{factura.tipo_moneda}}</label>
+          <label>
+            <b>Número Correlativo:</b> {{factura.numero_correlativo}}</label>
+          <label>
+            <b>Fecha de emisión:</b> {{factura.fecha_emision}}</label>
+          <label>
+            <b>Moneda:</b> {{factura.tipo_moneda}}</label>
         </div>
         <div class="col-sm-6">
-          <label><b>Valor Nominal:</b> {{factura.valor_venta}}</label>
-          <label><b>Fecha de emisión:</b> {{factura.fecha_vencimiento}}</label>
+          <label>
+            <b>Valor Nominal:</b> {{factura.valor_venta}}</label>
+          <label>
+            <b>Fecha de emisión:</b> {{factura.fecha_vencimiento}}</label>
         </div>
       </div>
     </div>
@@ -23,24 +28,42 @@
       <form>
         <div class="row">
           <div class="col-sm-6">
-            <label for="banco"><b>Banco</b></label>
-            <select name="banco_id" name="banco" [(ngModel)]="bancoID" (change)="bancoSelect()">
+            <label for="banco">
+              <b>Banco</b>
+            </label>
+            <select name="banco_id" name="banco" [(ngModel)]="bancoID" (change)="bancoSelect()" required #bancoControl='ngModel'>
               <option *ngFor="let item of bancos" [value]="item.id">{{ item.nombre }}</option>
             </select>
+            <div *ngIf='bancoControl.touched && !bancoControl.valid' class="text-danger">
+              Llena el campo por favor
+            </div>
             <label *ngIf="bancoSelected" for="costos_iniciales">Costos Iniciales: {{bancoSeleccionado.costos_iniciales}}</label>
-            <label for="tasa" *ngIf="bancoSelected"><b>Tasa</b></label>
-            <select *ngIf="bancoSelected" name="tasa" [(ngModel)]="tasaID">
+            <label for="tasa" *ngIf="bancoSelected">
+              <b>Tasa</b>
+            </label>
+            <select [hidden]="!bancoSelected" name="tasa" [(ngModel)]="tasaID" required #tasaControl='ngModel'>
               <option *ngFor="let item of tasas" [value]="item.id">{{ item.tasa_string }}</option>
             </select>
+            <div *ngIf='tasaControl.touched && !tasaControl.valid' class="text-danger">
+              Llena el campo por favor
+            </div>
           </div>
           <div class="col-sm-6">
-            <label for="fecha_descuento"><b>Fecha de descuento:</b></label>
-            <input type="date" name="fecha_descuento" [(ngModel)]="fecha_descuento">
+            <label for="fecha_descuento">
+              <b>Fecha de descuento:</b>
+            </label>
+            <input type="date" name="fecha_descuento" [(ngModel)]="fecha_descuento" required #fdControl='ngModel'>
+            <div *ngIf='fdControl.touched && !fdControl.valid' class="text-danger">
+              Llena el campo por favor
+            </div>
+            <div *ngIf='fecha_emision_string > fdControl.model' class="text-danger">
+              La fecha de impresión tiene que ser mayor o igual a la fecha de emisión
+            </div>
             <label *ngIf="bancoSelected" for="costos_iniciales">Costos Finales: {{bancoSeleccionado.costos_finales}}</label>
           </div>
         </div>
         <div class="text-center">
-          <button class="btn btn-success" (click)="calculoDescuento();">Calcular</button>
+          <button class="btn btn-success" (click)="calculoDescuento();" [disabled]='!bancoControl.valid || !tasaControl.valid || !fdControl.valid || fecha_emision_string > fdControl.model'>Calcular</button>
         </div>
       </form>
     </div>

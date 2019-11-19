@@ -13,13 +13,22 @@
             <div class="col-sm-6">
               <label>Fecha de emision</label>
               <div class="form-element">
-                <input type="date" name="fecha_emision" [(ngModel)]="factura.fecha_emision">
+                <input type="date" name="fecha_emision" [(ngModel)]="factura.fecha_emision" required #feControl='ngModel'>
+                <div *ngIf='feControl.touched && !feControl.valid' class="text-danger">
+                  Llena el campo por favor
+                </div>
               </div>
             </div>
             <div class="col-sm-6">
               <label>Fecha de impresion</label>
               <div class="form-element">
-                <input type="date" name="fecha_impresion" [(ngModel)]="factura.fecha_impresion">
+                <input type="date" name="fecha_impresion" [(ngModel)]="factura.fecha_impresion" required #fiControl='ngModel'>
+                <div *ngIf='fiControl.touched && !fiControl.valid' class="text-danger">
+                  Llena el campo por favor
+                </div>
+                <div *ngIf='feControl.model > fiControl.model' class="text-danger">
+                  La fecha de impresión tiene que ser mayor o igual a la fecha de emisión
+                </div>
               </div>
             </div>
           </div>
@@ -27,13 +36,25 @@
             <div class="col-sm-6">
               <label>Fecha de vencimiento</label>
               <div class="form-element">
-                <input type="date" name="fecha_vencimiento" [(ngModel)]="factura.fecha_vencimiento">
+                <input type="date" name="fecha_vencimiento" [(ngModel)]="factura.fecha_vencimiento" required #fvControl='ngModel'>
+                <div *ngIf='fvControl.touched && !fvControl.valid' class="text-danger">
+                  Llena el campo por favor
+                </div>
+                <div *ngIf='feControl.model > fvControl.model' class="text-danger">
+                  La fecha de vencimiento tiene que ser mayor o igual a la fecha de emisión
+                </div>
               </div>
             </div>
             <div class="col-sm-6">
-              <label>IGV</label>
+              <label>IGV (%)</label>
               <div class="form-element">
-                <input type="text" name="igv" [(ngModel)]="igv_porcentaje">%
+                <input type="number" name="igv" [(ngModel)]="igv_porcentaje" required #igvControl='ngModel' (change)='calcPrecio();'>
+                <div *ngIf='igvControl.touched && !igvControl.valid' class="text-danger">
+                  Llena el campo por favor
+                </div>
+                <div *ngIf='(igvControl.model > 30 || igvControl.model < 1) && igvControl.valid' class="text-danger">
+                  IGV solo puede estar entre 1 y 30
+                </div>
               </div>
             </div>
           </div>
@@ -41,14 +62,22 @@
             <div class="col-sm-6">
               <label>RUC de imprenta</label>
               <div class="form-element">
-                <input type="text" name="ruc_imprenta" [(ngModel)]="factura.ruc_imprenta">
+                <input type="number" name="ruc_imprenta" [(ngModel)]="factura.ruc_imprenta" required #rucControl='ngModel'>
+                <div *ngIf='rucControl.touched && !rucControl.valid' class="text-danger">
+                  Llena el campo por favor
+                </div>
+                <div *ngIf='(rucControl.model < 10000000000 || rucControl.model > 99999999999) && rucControl.valid' class="text-danger">
+                  RUC debe tener 11 digitos
+                </div>
               </div>
             </div>
             <div class="col-sm-6">
               <label>Numero de autorizacion de impresion</label>
               <div class="form-element">
-                <input type="text" name="numero_autorizacion_impresion"
-                  [(ngModel)]="factura.numero_autorizacion_impresion">
+                <input type="number" name="numero_autorizacion_impresion" [(ngModel)]="factura.numero_autorizacion_impresion" required #naiControl='ngModel'>
+                <div *ngIf='naiControl.touched && !naiControl.valid' class="text-danger">
+                  Llena el campo por favor
+                </div>
               </div>
             </div>
           </div>
@@ -56,13 +85,19 @@
             <div class="col-sm-6">
               <label>Numero correlativo</label>
               <div class="form-element">
-                <input type="text" name="numero_correlativo" [(ngModel)]="factura.numero_correlativo">
+                <input type="text" name="numero_correlativo" [(ngModel)]="factura.numero_correlativo" required #ncControl='ngModel'>
+                <div *ngIf='ncControl.touched && !ncControl.valid' class="text-danger">
+                  Llena el campo por favor
+                </div>
               </div>
             </div>
             <div class="col-sm-6">
               <label>Numero de serie</label>
               <div class="form-element">
-                <input type="text" name="numero_serie" [(ngModel)]="factura.numero_serie">
+                <input type="text" name="numero_serie" [(ngModel)]="factura.numero_serie" required #nsControl='ngModel'>
+                <div *ngIf='nsControl.touched && !nsControl.valid' class="text-danger">
+                  Llena el campo por favor
+                </div>
               </div>
             </div>
           </div>
@@ -79,12 +114,18 @@
             <div class="col-sm-6">
               <label>Valor de venta</label>
               <div class="form-element">
-                <input type="text" name="valor_venta" [(ngModel)]="factura.valor_venta">
+                <input type="text" name="valor_venta" [(ngModel)]="factura.valor_venta" required #vvControl='ngModel' (change)='calcPrecio();'>
+                <div *ngIf='vvControl.touched && !vvControl.valid' class="text-danger">
+                  Llena el campo por favor
+                </div>
+                <div *ngIf='(vvControl.model < 100 || vvControl.model > 1000000) && vvControl.valid' class="text-danger">
+                  Valor de venta debe ser mayor a 100 y menor a 1000000
+                </div>
               </div>
             </div>
           </div>
           <div class="row">
-            <div class="col-sm-6" *ngIf="paramId">
+            <div class="col-sm-6">
               <label>Precio de venta</label>
               <div class="form-element">
                 <input type="text" name="precio_venta" [(ngModel)]="factura.precio_venta" disabled>
@@ -92,11 +133,17 @@
             </div>
           </div>
           <div class="factura-button text-center">
-            <button class="btn btn-warning" type="submit" (click)="update();" *ngIf="paramId">Modificar</button>
+            <button class="btn btn-warning" type="submit" (click)="update();" *ngIf="paramId" [disabled]='!feControl.valid || !fiControl.valid ||
+             !fvControl.valid || !igvControl.valid || !rucControl.valid || !naiControl.valid || !ncControl.valid || !nsControl.valid || 
+             !vvControl.valid || feControl.model > fiControl.model || feControl.model > fvControl.model || igvControl.model > 30 || igvControl.model < 1 || 
+             rucControl.model < 10000000000 || rucControl.model > 99999999999 || vvControl.model < 100 || vvControl.model > 1000000'>Modificar</button>
             <button class="btn btn-info" type="submit" (click)="desc();" *ngIf="paramId">Calcular Descuento</button>
           </div>
           <div class="factura-button text-center">
-            <button class="btn btn-success" type="submit" (click)="create();" *ngIf="!paramId">Crear</button>
+            <button class="btn btn-success" type="submit" (click)="create();" *ngIf="!paramId" [disabled]='!feControl.valid || !fiControl.valid ||
+            !fvControl.valid || !igvControl.valid || !rucControl.valid || !naiControl.valid || !ncControl.valid || !nsControl.valid || 
+            !vvControl.valid || feControl.model > fiControl.model || feControl.model > fvControl.model || igvControl.model > 30 || igvControl.model < 1 || 
+            rucControl.model < 10000000000 || rucControl.model > 99999999999 || vvControl.model < 100 || vvControl.model > 1000000'>Crear</button>
           </div>
         </form>
       </div>
