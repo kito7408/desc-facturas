@@ -29,6 +29,8 @@ export class CalcDescuentoComponent implements OnInit {
   error: boolean;
   user: Usuario;
   fecha_emision_string: string;
+  costosIniciales = new Array<any>();
+  costosFinales = new Array<any>();
 
   constructor(
     private route: ActivatedRoute,
@@ -65,7 +67,16 @@ export class CalcDescuentoComponent implements OnInit {
   bancoSelect(): void {
     this.bancoService.getById(this.bancoID).subscribe((result) => {
       this.bancoSeleccionado = result;
-    })
+    });
+    this.bancoService.costosgastos(this.bancoID).subscribe((result) => {
+      result.forEach(element => {
+        if(element.estado == 0){
+          this.costosIniciales.push(element);
+        } else if(element.estado == 1){
+          this.costosFinales.push(element);
+        }
+      });
+    });
     this.tasaService.getByBancoId(this.bancoID).subscribe((result) => {
       this.tasas = result;
       this.tasas.forEach(element => {

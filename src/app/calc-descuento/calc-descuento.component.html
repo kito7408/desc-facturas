@@ -38,6 +38,16 @@
               Llena el campo por favor
             </div>
             <label *ngIf="bancoSelected" for="costos_iniciales">Costos Iniciales: {{bancoSeleccionado.costos_iniciales}}</label>
+            <table class="table" *ngIf='bancoSelected'>
+              <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Valor</th>
+              </tr>
+              <tr *ngFor="let item of costosIniciales">
+                <td scope="row">{{item.nombre}}</td>
+                <td>{{item.valor}}</td>
+              </tr>
+            </table>
             <label for="tasa" *ngIf="bancoSelected">
               <b>Tasa</b>
             </label>
@@ -60,6 +70,16 @@
               La fecha de impresión tiene que ser mayor o igual a la fecha de emisión
             </div>
             <label *ngIf="bancoSelected" for="costos_iniciales">Costos Finales: {{bancoSeleccionado.costos_finales}}</label>
+            <table class="table" *ngIf='bancoSelected'>
+                <tr>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Valor</th>
+                </tr>
+                <tr *ngFor="let item of costosFinales">
+                  <td scope="row">{{item.nombre}}</td>
+                  <td>{{item.valor}}</td>
+                </tr>
+              </table>
           </div>
         </div>
         <div class="text-center">

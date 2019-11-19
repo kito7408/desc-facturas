@@ -34,4 +34,9 @@ export class BancosService {
     const newUrl = this.url + '/' + id;
     return this.http.delete<Banco>(newUrl);
   }
+
+  costosgastos(id: number): Observable<any[]>{
+    const newUrl = 'https://descuento-factura.herokuapp.com/api/v1/costosgastos?bancoId=' + id;
+    return this.http.get<any[]>(newUrl);
+  }
 }
