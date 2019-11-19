@@ -49,7 +49,8 @@ export class FacturasComponent implements OnInit {
         this.hayFacturas = true;
       }
       data.forEach(element => {
-        element.date_string = moment.utc(element.fecha_emision).format('DD/MM/YYYY').toString();
+        element.dateE_string = moment.utc(element.fecha_emision).format('DD/MM/YYYY').toString();
+        element.dateV_string = moment.utc(element.fecha_vencimiento).format('DD/MM/YYYY').toString();
       });
       this.facturas=data;
     });
@@ -64,7 +65,7 @@ export class FacturasComponent implements OnInit {
           element.retencion = 0;
         }
         this.cartera_vr += Number(element.valor_recibido);
-        element.fecha_giro = moment.utc(element.fecha_giro).format('DD/MM/YYYY').toString();
+        element.fecha_descuento = moment.utc(element.fecha_descuento).format('DD/MM/YYYY').toString();
         element.fecha_vencimiento = moment.utc(element.fecha_vencimiento).format('DD/MM/YYYY').toString();
         element.tasa_efectiva = Number(element.tasa_efectiva) * 100;
         element.tasa_efectiva = Math.round(element.tasa_efectiva * 10000000) / 10000000;

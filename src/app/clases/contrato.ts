@@ -2,7 +2,7 @@ export class Contrato{
     id: number;
     banco_id: number;
     factura_id: number;
-    fecha_giro: Date;
+    fecha_descuento: Date;
     fecha_vencimiento: Date;
     valor_nominal: number;
     dias: number;

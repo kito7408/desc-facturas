@@ -55,10 +55,10 @@ export class CalcDescuentoComponent implements OnInit {
       this.facturaID = params['id'];
       this.facturaService.getById(this.facturaID).subscribe((result) => {
         this.factura = result;
-        this.fecha_emision_string = moment(this.factura.fecha_emision).format('YYYY-MM-DD').toString();
-        this.fecha_vencimiento_string = moment(this.factura.fecha_vencimiento).format('YYYY-MM-DD').toString();
-        this.factura.fecha_emision = moment(this.factura.fecha_emision).format('DD/MM/YYYY').toString();
-        this.factura.fecha_vencimiento = moment(this.factura.fecha_vencimiento).format('DD/MM/YYYY').toString();
+        this.fecha_emision_string = moment.utc(this.factura.fecha_emision).format('YYYY-MM-DD').toString();
+        this.fecha_vencimiento_string = moment.utc(this.factura.fecha_vencimiento).format('YYYY-MM-DD').toString();
+        this.factura.fecha_emision = moment.utc(this.factura.fecha_emision).format('DD/MM/YYYY').toString();
+        this.factura.fecha_vencimiento = moment.utc(this.factura.fecha_vencimiento).format('DD/MM/YYYY').toString();
       })
     });
 

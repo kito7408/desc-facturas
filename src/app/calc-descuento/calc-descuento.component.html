@@ -67,10 +67,10 @@
               Llena el campo por favor
             </div>
             <div *ngIf='fecha_emision_string > fdControl.model' class="text-danger">
-              La fecha de impresión tiene que ser mayor o igual a la fecha de emisión
+              La fecha de descuento tiene que ser mayor o igual a la fecha de emisión
             </div>
             <div *ngIf='fecha_vencimiento_string <= fdControl.model' class="text-danger">
-              La fecha de impresión tiene que ser menor a la fecha de vencimiento
+              La fecha de descuento tiene que ser menor a la fecha de vencimiento
             </div>
             <label *ngIf="bancoSelected" for="costos_iniciales"><b>Costos Finales:</b> {{bancoSeleccionado.costos_finales}}</label>
             <table class="table" *ngIf='hayCostosF'>

@@ -32,7 +32,7 @@ export class ContratosService {
       facturaId: facID,
       bancoId: bankID,
       tasaId: tasaID,
-      fechaGiro: fecha,
+      fechaDescuento: fecha,
       usuarioId: userID
     }
     return this.http.post<Contrato>(this.url,data);
